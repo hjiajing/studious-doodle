@@ -1,4 +1,4 @@
-# Migrate CNI from Calico to Antrea
+# Migrate CNI from Calico to Antrea[WIP]
 
 This document describes how to migrate CNI from Calico to Antrea.
 
@@ -458,6 +458,10 @@ It still works well. The traffic from Antrea client to Nginx is from Antrea Pod 
 #### Solution 1
 
 Edit the Calico IPPool to avoid PodCIDR overlapped.
+
+The default Calico IP block is `/26`, which is smaller than PodCIDR on Node, so maybe we can migrate IPPool to another which is not overlapped with Node PodCIDR, then do migration above.
+
+[calico-ippool-migration](https://docs.tigera.io/calico/latest/networking/ipam/migrate-pools)
 
 #### Solution 2
 
