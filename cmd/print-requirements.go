@@ -5,17 +5,10 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
-	"github.com/jedib0t/go-pretty/v6/table"
-	"github.com/jedib0t/go-pretty/v6/text"
 	"github.com/spf13/cobra"
 )
 
-const (
-	calicoVersion = "v3.26.1"
-	antreaVersion = "v1.14.0"
-)
 
 // printRequirementsCmd represents the printRequirements command
 var printRequirementsCmd = &cobra.Command{
@@ -31,32 +24,8 @@ to quickly create a Cobra application.`,
 		fmt.Println(`========== WARNING ==========
 THIS IS AN EXPERIMENTAL FEATURE.
 YOUR SERVICE MAY NOT WORK AS EXPECTED DURING THE MIGRATION.
-IF YOU WANT TO MIGRATE YOUR SERVICE, PLEASE CHECK THE REQUIREMENTS TABLE.`)
-		printRequirementsTable()
+IF YOU WANT TO MIGRATE YOUR SERVICE, PLEASE MAKE SURE THE CALICO APISERVER IS INSTALLED.`)
 	},
-}
-
-func printRequirementsTable() {
-	t := table.NewWriter()
-	t.SetOutputMirror(os.Stdout)
-	t.Style().Options.DrawBorder = true
-	t.Style().Options.SeparateRows = true
-	t.Style().Format = table.FormatOptions{
-		Footer: text.FormatLower,
-		Header: text.FormatLower,
-		Row:    text.FormatLower,
-	}
-	// set max width of the table
-
-	t.SetTitle("Requirements Calico Configuration")
-	t.AppendHeader(table.Row{"Calico Version", calicoVersion})
-	// t.AppendHeader(table.Row{"Cluster IPAM Plugin", "Calico-ipam"})
-	t.AppendRow(table.Row{"Cluster IPAM Plugin", "Calico-ipam"})
-	t.AppendRow(table.Row{"ipip mode", "always"})
-	t.AppendRow(table.Row{"natOutgoing", "true"})
-	t.AppendRow(table.Row{"alloweduses", "workload, tunnel"})
-	t.AppendRow(table.Row{"ipamconfig.autoAllocateBlocks", "true"})
-	t.Render()
 }
 
 func init() {
