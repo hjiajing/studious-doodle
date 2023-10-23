@@ -73,6 +73,7 @@ function start_migrate() {
     kubectl apply -f https://raw.githubusercontent.com/antrea-io/antrea/master/build/yamls/antrea.yml
     echo "========== Waiting for Antrea to be ready =========="
     kubectl rollout status ds/antrea-agent -n kube-system
+    ./antrea-migrator convert-networkpolicy
     nodes=$(kubectl get node -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}')
     for node in $nodes; do
         create_kill_sandbox_job $node
