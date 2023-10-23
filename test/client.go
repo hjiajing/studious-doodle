@@ -67,8 +67,10 @@ func worker(url string, threadNum int, t int) {
 					// log.Println("Trying to fetch url: ", url)
 					resp, err := client.Get(url)
 					if err != nil || resp.StatusCode != http.StatusOK {
+						log.Println("Error fetching url", err)
 						failure++
 					} else {
+						log.Println("Success fetching url", url)
 						success++
 					}
 				case <-ctx.Done():
